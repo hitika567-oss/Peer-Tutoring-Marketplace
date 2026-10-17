@@ -1,0 +1,1026 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeerLearn | Peer Tutoring Marketplace</title>
+
+<style>
+:root {
+  --bg: #0b0b10;
+  --panel: #14141c;
+  --panel2: #1b1b26;
+  --text: #f5f5ff;
+  --muted: #a5a5bd;
+  --primary: #9275ff;
+  --pink: #f16bb5;
+  --green: #35d6a0;
+  --border: #30303e;
+  --danger: #ff7272;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+header {
+  border-bottom: 1px solid var(--border);
+  background: #101017;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--primary); }
+
+.nav-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+main {
+  max-width: 1200px;
+  padding: 32px 22px 60px;
+  margin: auto;
+}
+
+.hero {
+  padding: 42px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at top right, #543b823b, transparent 48%),
+    linear-gradient(135deg, #171521, #111119);
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  color: var(--pink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(34px, 5vw, 55px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin: 12px 0;
+}
+
+h1 span {
+  background: linear-gradient(90deg, var(--primary), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 650px;
+}
+
+.stats {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.stat strong { display: block; font-size: 23px; }
+.stat span { color: var(--muted); font-size: 13px; }
+
+.btn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  background: var(--panel2);
+  color: var(--text);
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-1px); border-color: var(--primary); }
+
+.btn.primary {
+  background: linear-gradient(110deg, #8061ed, #b05fda);
+  border: none;
+  font-weight: 750;
+}
+
+.btn.success {
+  color: var(--green);
+  border-color: #23654e;
+}
+
+.btn.danger { color: var(--danger); }
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 30px 0 18px;
+}
+
+h2 { margin: 0; font-size: 25px; letter-spacing: -.6px; }
+h3 { margin: 0; font-size: 17px; }
+
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+.search-panel {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #101018;
+  color: var(--text);
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.field { margin-bottom: 15px; }
+
+.tutor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 0;
+}
+
+.tutor-card { transition: .2s; }
+.tutor-card:hover {
+  border-color: #7160b5;
+  transform: translateY(-3px);
+}
+
+.tutor-top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  flex-shrink: 0;
+  font-size: 25px;
+  background: linear-gradient(135deg, #51417c, #a74c90);
+}
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0; }
+
+.tag {
+  background: #252032;
+  color: #c9baff;
+  border: 1px solid #403354;
+  padding: 4px 9px;
+  font-size: 11px;
+  border-radius: 20px;
+}
+
+.rating { color: #ffc967; font-size: 14px; }
+.price { font-size: 22px; font-weight: 850; }
+.price span { color: var(--muted); font-size: 12px; font-weight: 400; }
+
+.card-actions { display: flex; gap: 9px; margin-top: 16px; }
+.card-actions .btn { flex: 1; padding: 9px 8px; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.booking {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.booking:last-child { border-bottom: none; }
+
+.booking-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  background: #292333;
+  color: #d2c4ff;
+  white-space: nowrap;
+}
+
+.status.Confirmed, .status.Completed { color: var(--green); background: #163329; }
+.status.Cancelled { color: #ff9292; background: #3b2026; }
+.status.Pending { color: #ffd479; background: #382f1b; }
+
+.booking-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.booking-actions .btn { padding: 7px 11px; font-size: 12px; }
+
+.empty {
+  color: var(--muted);
+  padding: 24px 0;
+  text-align: center;
+}
+
+.hidden { display: none !important; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 25px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #000b;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 20;
+  overflow-y: auto;
+}
+
+.modal-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 25px;
+  width: min(500px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.close {
+  border: 0;
+  color: var(--text);
+  background: var(--panel2);
+  border-radius: 8px;
+  width: 35px;
+  height: 35px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  background: #242033;
+  border: 1px solid #5c4c85;
+  padding: 14px 18px;
+  border-radius: 12px;
+  z-index: 30;
+  max-width: calc(100vw - 44px);
+  box-shadow: 0 10px 35px #0007;
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.detail {
+  background: var(--panel2);
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.detail span { display: block; color: var(--muted); font-size: 12px; }
+.detail strong { font-size: 14px; }
+
+@media (max-width: 850px) {
+  .tutor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .search-panel { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  main { padding: 22px 14px 40px; }
+  .hero { padding: 25px 20px; }
+  .tutor-grid, .two-col { grid-template-columns: 1fr; }
+  .search-panel { grid-template-columns: 1fr; }
+  .nav { padding: 14px; }
+  h1 { letter-spacing: -1px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="nav">
+    <div class="logo">Peer<span>Learn.</span></div>
+    <div class="nav-right">
+      <button class="btn" onclick="scrollToTutors()">Find Tutors</button>
+      <button class="btn" onclick="scrollToHistory()">Bookings</button>
+      <select id="userMode" aria-label="Select user mode" onchange="changeMode()">
+        <option value="student">Student Mode</option>
+        <option value="tutor">Tutor Mode</option>
+      </select>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Learn together. Grow together.</div>
+    <h1>Your next breakthrough<br>starts with a <span>peer.</span></h1>
+    <p>
+      Discover talented student tutors, book personalized learning
+      sessions, and share knowledge with a community that grows together.
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
+      <button class="btn primary" onclick="scrollToTutors()">Explore Tutors →</button>
+      <button class="btn" onclick="scrollToHistory()">View Bookings</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong id="tutorCount">6</strong><span>Peer tutors</span></div>
+      <div class="stat"><strong id="sessionCount">0</strong><span>Sessions booked</span></div>
+      <div class="stat"><strong>100%</strong><span>Peer-powered learning</span></div>
+    </div>
+  </section>
+
+  <section id="tutorsSection">
+    <div class="section-head">
+      <div>
+        <h2>Find your perfect tutor</h2>
+        <div class="muted small">Search profiles, compare rates, and book a session.</div>
+      </div>
+      <span class="muted small" id="resultCount"></span>
+    </div>
+
+    <div class="search-panel">
+      <div>
+        <label for="search">Search tutor or subject</label>
+        <input id="search" placeholder="e.g. Python, mathematics..." oninput="renderTutors()">
+      </div>
+      <div>
+        <label for="subjectFilter">Subject</label>
+        <select id="subjectFilter" onchange="renderTutors()">
+          <option value="">All subjects</option>
+          <option>Programming</option>
+          <option>Mathematics</option>
+          <option>Science</option>
+          <option>Web Development</option>
+          <option>Artificial Intelligence</option>
+        </select>
+      </div>
+      <div>
+        <label for="sortFilter">Sort by</label>
+        <select id="sortFilter" onchange="renderTutors()">
+          <option value="rating">Highest rated</option>
+          <option value="priceLow">Price: low to high</option>
+          <option value="priceHigh">Price: high to low</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:end">
+        <button class="btn" onclick="resetSearch()">Reset</button>
+      </div>
+    </div>
+
+    <div class="tutor-grid" id="tutorGrid"></div>
+  </section>
+
+  <section class="two-col" id="historySection">
+    <div class="card">
+      <div class="section-head" style="margin-top:0">
+        <div>
+          <h2 id="historyTitle">My bookings</h2>
+          <div class="muted small" id="historySubtitle">Track your learning sessions.</div>
+        </div>
+      </div>
+      <div id="bookingHistory"></div>
+    </div>
+
+    <div class="card">
+      <h2>How PeerLearn works</h2>
+      <p class="muted small">A simple learning journey for everyone.</p>
+      <div class="booking">
+        <h3>01. Discover</h3>
+        <p class="muted small">Search tutor profiles by subject, rating, and price.</p>
+      </div>
+      <div class="booking">
+        <h3>02. Book a session</h3>
+        <p class="muted small">Choose a date, time, and topic for your learning session.</p>
+      </div>
+      <div class="booking">
+        <h3>03. Learn and review</h3>
+        <p class="muted small">Track session progress and leave a rating after completion.</p>
+      </div>
+      <div style="margin-top:15px">
+        <span class="tag">Tutor profiles</span>
+        <span class="tag">Bookings</span>
+        <span class="tag">Reviews</span>
+        <span class="tag">Booking history</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  PeerLearn © 2026 · Built for collaborative learning.
+  <br>Demo website for a peer tutoring marketplace assignment.
+</footer>
+
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="modalTitle">Book a session</h2>
+      <button class="close" onclick="closeModal()" aria-label="Close dialog">✕</button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+// ----------------------------------------------------
+// PEERLEARN: Peer Tutoring Marketplace
+// Demo data and browser storage
+// ----------------------------------------------------
+
+const initialTutors = [
+  {
+    id: 1, name: "Aarav Sharma", emoji: "👨‍💻",
+    subjects: ["Programming", "Artificial Intelligence"],
+    bio: "I enjoy making programming concepts easy to understand.",
+    experience: "2 years", price: 250, rating: 4.9,
+    reviews: [
+      { student: "Demo Student", rating: 5, text: "Clear explanations and very helpful." }
+    ]
+  },
+  {
+    id: 2, name: "Priya Verma", emoji: "👩‍🔬",
+    subjects: ["Mathematics", "Science"],
+    bio: "Helping students build strong fundamentals with practical examples.",
+    experience: "3 years", price: 200, rating: 4.8, reviews: []
+  },
+  {
+    id: 3, name: "Rohan Mehta", emoji: "🧑‍💻",
+    subjects: ["Programming", "Web Development"],
+    bio: "Learn HTML, CSS, JavaScript, and coding fundamentals step by step.",
+    experience: "2 years", price: 300, rating: 4.7, reviews: []
+  },
+  {
+    id: 4, name: "Ananya Gupta", emoji: "👩‍🎓",
+    subjects: ["Artificial Intelligence", "Programming"],
+    bio: "Exploring machine learning and helping beginners get started.",
+    experience: "1 year", price: 350, rating: 4.9, reviews: []
+  },
+  {
+    id: 5, name: "Kabir Singh", emoji: "🧑‍🏫",
+    subjects: ["Mathematics", "Science"],
+    bio: "Patient tutor focused on problem-solving and exam preparation.",
+    experience: "4 years", price: 180, rating: 4.6, reviews: []
+  },
+  {
+    id: 6, name: "Isha Kapoor", emoji: "👩‍💻",
+    subjects: ["Web Development", "Programming"],
+    bio: "Build confidence through small projects and hands-on practice.",
+    experience: "2 years", price: 275, rating: 4.8, reviews: []
+  }
+];
+
+function loadStorage(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch (error) {
+    return fallback;
+  }
+}
+
+let tutors = loadStorage("peerlearn_tutors", initialTutors);
+let bookings = loadStorage("peerlearn_bookings", []);
+let currentMode = "student";
+let toastTimer;
+
+function saveData() {
+  localStorage.setItem("peerlearn_tutors", JSON.stringify(tutors));
+  localStorage.setItem("peerlearn_bookings", JSON.stringify(bookings));
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function notify(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.add("hidden"), 3000);
+}
+
+function getTutor(id) {
+  return tutors.find(tutor => tutor.id === Number(id));
+}
+
+function averageRating(tutor) {
+  if (!tutor.reviews || tutor.reviews.length === 0) {
+    return Number(tutor.rating) || 0;
+  }
+  const sum = tutor.reviews.reduce((total, review) => total + review.rating, 0);
+  return sum / tutor.reviews.length;
+}
+
+function renderTutors() {
+  const query = document.getElementById("search").value.toLowerCase().trim();
+  const subject = document.getElementById("subjectFilter").value;
+  const sort = document.getElementById("sortFilter").value;
+
+  let filtered = tutors.filter(tutor => {
+    const searchable = [
+      tutor.name,
+      tutor.bio,
+      ...tutor.subjects
+    ].join(" ").toLowerCase();
+
+    return searchable.includes(query) &&
+      (!subject || tutor.subjects.includes(subject));
+  });
+
+  filtered.sort((a, b) => {
+    if (sort === "priceLow") return a.price - b.price;
+    if (sort === "priceHigh") return b.price - a.price;
+    return averageRating(b) - averageRating(a);
+  });
+
+  document.getElementById("resultCount").textContent =
+    `${filtered.length} tutor${filtered.length === 1 ? "" : "s"} found`;
+
+  document.getElementById("tutorCount").textContent = tutors.length;
+  document.getElementById("sessionCount").textContent = bookings.length;
+
+  const grid = document.getElementById("tutorGrid");
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="card empty" style="grid-column:1/-1">No tutors found. Try a different search.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(tutor => `
+    <article class="card tutor-card">
+      <div class="tutor-top">
+        <div class="avatar">${escapeHTML(tutor.emoji)}</div>
+        <div>
+          <h3>${escapeHTML(tutor.name)}</h3>
+          <div class="rating">★ ${averageRating(tutor).toFixed(1)}
+            <span class="muted">(${tutor.reviews.length} reviews)</span>
+          </div>
+        </div>
+      </div>
+      <p class="muted small">${escapeHTML(tutor.bio)}</p>
+      <div class="tag-row">
+        ${tutor.subjects.map(s => `<span class="tag">${escapeHTML(s)}</span>`).join("")}
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:10px">
+        <div>
+          <div class="price">₹${Number(tutor.price)} <span>/ session</span></div>
+          <div class="muted small">${escapeHTML(tutor.experience)} experience</div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn" onclick="showProfile(${tutor.id})">View profile</button>
+        <button class="btn primary" onclick="openBooking(${tutor.id})"
+          ${currentMode !== "student" ? "disabled" : ""}>Book session</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function resetSearch() {
+  document.getElementById("search").value = "";
+  document.getElementById("subjectFilter").value = "";
+  document.getElementById("sortFilter").value = "rating";
+  renderTutors();
+}
+
+function showProfile(id) {
+  const tutor = getTutor(id);
+  if (!tutor) return;
+
+  const reviews = tutor.reviews.length
+    ? tutor.reviews.map(review => `
+        <div class="booking">
+          <strong>${escapeHTML(review.student)}</strong>
+          <div class="rating">${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}</div>
+          <p class="muted small">${escapeHTML(review.text)}</p>
+        </div>
+      `).join("")
+    : '<p class="muted small">No written reviews yet. Be the first to share feedback after a completed session.</p>';
+
+  document.getElementById("modalTitle").textContent = "Tutor profile";
+  document.getElementById("modalContent").innerHTML = `
+    <div class="tutor-top">
+      <div class="avatar">${escapeHTML(tutor.emoji)}</div>
+      <div>
+        <h2>${escapeHTML(tutor.name)}</h2>
+        <div class="rating">★ ${averageRating(tutor).toFixed(1)}</div>
+      </div>
+    </div>
+    <p class="muted">${escapeHTML(tutor.bio)}</p>
+    <div class="profile-details">
+      <div class="detail"><span>Experience</span><strong>${escapeHTML(tutor.experience)}</strong></div>
+      <div class="detail"><span>Price per session</span><strong>₹${Number(tutor.price)}</strong></div>
+      <div class="detail"><span>Subjects</span><strong>${tutor.subjects.map(escapeHTML).join(", ")}</strong></div>
+      <div class="detail"><span>Total reviews</span><strong>${tutor.reviews.length}</strong></div>
+    </div>
+    <h3>Student reviews</h3>
+    ${reviews}
+    <button class="btn primary" style="width:100%;margin-top:18px"
+      onclick="closeModal();openBooking(${tutor.id})"
+      ${currentMode !== "student" ? "disabled" : ""}>Book a session</button>
+  `;
+
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function openBooking(id) {
+  if (currentMode !== "student") {
+    notify("Switch to Student Mode to book a session.");
+    return;
+  }
+
+  const tutor = getTutor(id);
+  if (!tutor) return;
+
+  const today = new Date();
+  const localToday = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0")
+  ].join("-");
+
+  document.getElementById("modalTitle").textContent = "Book a session";
+  document.getElementById("modalContent").innerHTML = `
+    <p class="muted">Booking with <strong>${escapeHTML(tutor.name)}</strong> · ₹${Number(tutor.price)} per session</p>
+    <form id="bookingForm">
+      <div class="field">
+        <label for="studentName">Your name</label>
+        <input id="studentName" required maxlength="60" placeholder="Enter your name">
+      </div>
+      <div class="field">
+        <label for="topic">Learning topic</label>
+        <input id="topic" required maxlength="100" placeholder="e.g. Python loops">
+      </div>
+      <div class="field">
+        <label for="bookingDate">Session date</label>
+        <input id="bookingDate" type="date" min="${localToday}" required>
+      </div>
+      <div class="field">
+        <label for="bookingTime">Session time</label>
+        <select id="bookingTime" required>
+          <option value="">Choose a time</option>
+          <option>09:00 AM</option>
+          <option>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>12:00 PM</option>
+          <option>02:00 PM</option>
+          <option>03:00 PM</option>
+          <option>04:00 PM</option>
+          <option>05:00 PM</option>
+          <option>06:00 PM</option>
+          <option>07:00 PM</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="notes">Additional notes (optional)</label>
+        <textarea id="notes" maxlength="500" rows="3" placeholder="What would you like help with?"></textarea>
+      </div>
+      <button class="btn primary" type="submit" style="width:100%">Confirm booking request</button>
+    </form>
+  `;
+
+  document.getElementById("bookingForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const date = document.getElementById("bookingDate").value;
+    if (date < localToday) {
+      notify("Please select today or a future date.");
+      return;
+    }
+
+    bookings.push({
+      id: Date.now(),
+      tutorId: tutor.id,
+      tutorName: tutor.name,
+      studentName: document.getElementById("studentName").value.trim(),
+      topic: document.getElementById("topic").value.trim(),
+      date,
+      time: document.getElementById("bookingTime").value,
+      notes: document.getElementById("notes").value.trim(),
+      price: Number(tutor.price),
+      status: "Pending",
+      review: null,
+      createdAt: new Date().toISOString()
+    });
+
+    saveData();
+    closeModal();
+    renderAll();
+    notify("Booking request created successfully!");
+    scrollToHistory();
+  });
+
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+document.getElementById("modal").addEventListener("click", event => {
+  if (event.target.id === "modal") closeModal();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+function changeMode() {
+  currentMode = document.getElementById("userMode").value;
+  renderTutors();
+  renderBookings();
+
+  notify(currentMode === "student"
+    ? "Student Mode: browse and book tutors."
+    : "Tutor Mode: manage incoming booking requests.");
+}
+
+function renderBookings() {
+  const title = document.getElementById("historyTitle");
+  const subtitle = document.getElementById("historySubtitle");
+  const container = document.getElementById("bookingHistory");
+
+  title.textContent = currentMode === "student"
+    ? "Student booking history"
+    : "Tutor booking dashboard";
+
+  subtitle.textContent = currentMode === "student"
+    ? "Your sessions, requests, and completed lessons."
+    : "Manage requests from students and update session progress.";
+
+  const visible = currentMode === "student"
+    ? bookings
+    : bookings.filter(booking => getTutor(booking.tutorId));
+
+  if (!visible.length) {
+    container.innerHTML = `
+      <div class="empty">
+        <div style="font-size:30px">📚</div>
+        <p>${currentMode === "student"
+          ? "No bookings yet. Find a tutor to get started!"
+          : "No session requests yet. New student bookings will appear here."}</p>
+      </div>`;
+    return;
+  }
+
+  const sorted = [...visible].sort((a, b) => b.id - a.id);
+
+  container.innerHTML = sorted.map(booking => {
+    const tutor = getTutor(booking.tutorId);
+    const otherPerson = currentMode === "student"
+      ? `Tutor: ${escapeHTML(tutor ? tutor.name : booking.tutorName)}`
+      : `Student: ${escapeHTML(booking.studentName)}`;
+
+    let actions = "";
+
+    if (currentMode === "tutor") {
+      if (booking.status === "Pending") {
+        actions += `<button class="btn success" onclick="updateBooking(${booking.id},'Confirmed')">Accept request</button>`;
+        actions += `<button class="btn danger" onclick="updateBooking(${booking.id},'Cancelled')">Decline</button>`;
+      } else if (booking.status === "Confirmed") {
+        actions += `<button class="btn success" onclick="updateBooking(${booking.id},'Completed')">Mark completed</button>`;
+        actions += `<button class="btn danger" onclick="updateBooking(${booking.id},'Cancelled')">Cancel session</button>`;
+      }
+    } else {
+      if (booking.status === "Pending" || booking.status === "Confirmed") {
+        actions += `<button class="btn danger" onclick="updateBooking(${booking.id},'Cancelled')">Cancel booking</button>`;
+      }
+
+      if (booking.status === "Completed" && !booking.review) {
+        actions += `<button class="btn primary" onclick="openReview(${booking.id})">Rate tutor</button>`;
+      }
+
+      if (booking.review) {
+        actions += `<span class="rating">Your rating: ${"★".repeat(booking.review.rating)}</span>`;
+      }
+    }
+
+    return `
+      <article class="booking">
+        <div class="booking-head">
+          <h3>${escapeHTML(booking.topic)}</h3>
+          <span class="status ${escapeHTML(booking.status)}">${escapeHTML(booking.status)}</span>
+        </div>
+        <p class="muted small">${otherPerson}</p>
+        <p class="small">📅 ${escapeHTML(booking.date)} · ${escapeHTML(booking.time)}</p>
+        <p class="small">💰 ₹${Number(booking.price)}</p>
+        ${booking.notes ? `<p class="muted small">Note: ${escapeHTML(booking.notes)}</p>` : ""}
+        ${booking.review ? `<p class="muted small">Review: ${escapeHTML(booking.review.text)}</p>` : ""}
+        <div class="booking-actions">${actions}</div>
+      </article>`;
+  }).join("");
+}
+
+function updateBooking(id, status) {
+  const booking = bookings.find(item => item.id === id);
+  if (!booking) return;
+
+  const allowed = {
+    Pending: ["Confirmed", "Cancelled"],
+    Confirmed: ["Completed", "Cancelled"],
+    Completed: [],
+    Cancelled: []
+  };
+
+  if (!allowed[booking.status].includes(status)) {
+    notify("That status change is not allowed.");
+    return;
+  }
+
+  booking.status = status;
+  saveData();
+  renderAll();
+  notify(`Booking status updated to ${status}.`);
+}
+
+function openReview(id) {
+  const booking = bookings.find(item => item.id === id);
+  if (!booking || booking.status !== "Completed" || booking.review) {
+    notify("Reviews are available once a session is completed.");
+    return;
+  }
+
+  document.getElementById("modalTitle").textContent = "Rate your session";
+  document.getElementById("modalContent").innerHTML = `
+    <p class="muted">Share feedback about your session with ${escapeHTML(booking.tutorName)}.</p>
+    <form id="reviewForm">
+      <div class="field">
+        <label for="reviewRating">Your rating</label>
+        <select id="reviewRating" required>
+          <option value="">Select stars</option>
+          <option value="5">★★★★★ — Excellent</option>
+          <option value="4">★★★★ — Very good</option>
+          <option value="3">★★★ — Good</option>
+          <option value="2">★★ — Needs improvement</option>
+          <option value="1">★ — Poor</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="reviewText">Your review</label>
+        <textarea id="reviewText" required minlength="3" maxlength="500" rows="4" placeholder="How was your learning experience?"></textarea>
+      </div>
+      <button class="btn primary" type="submit" style="width:100%">Submit review</button>
+    </form>
+  `;
+
+  document.getElementById("reviewForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const rating = Number(document.getElementById("reviewRating").value);
+    const text = document.getElementById("reviewText").value.trim();
+
+    if (rating < 1 || rating > 5 || text.length < 3) {
+      notify("Please enter a valid rating and review.");
+      return;
+    }
+
+    booking.review = { rating, text };
+
+    const tutor = getTutor(booking.tutorId);
+    if (tutor) {
+      tutor.reviews.push({
+        student: booking.studentName,
+        rating,
+        text
+      });
+      tutor.rating = averageRating(tutor);
+    }
+
+    saveData();
+    closeModal();
+    renderAll();
+    notify("Thank you! Your review has been published.");
+  });
+
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function renderAll() {
+  renderTutors();
+  renderBookings();
+}
+
+function scrollToTutors() {
+  document.getElementById("tutorsSection").scrollIntoView({ behavior: "smooth" });
+}
+
+function scrollToHistory() {
+  document.getElementById("historySection").scrollIntoView({ behavior: "smooth" });
+}
+
+// Start the application.
+renderAll();
+</script>
+</body>
+</html>

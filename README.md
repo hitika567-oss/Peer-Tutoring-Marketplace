@@ -44,7 +44,7 @@ A marketplace connecting students who need help with peer tutors, with bookings 
    ```
 
 ## Demo Preview Screenshot
-![Project Preview Screenshot](https://drive.google.com/file/d/1BWNDrFBzhGpsZJY9L1yYvYptwY0XgX8L/view?usp=drive_link)
+![Project Preview Screenshot](https://drive.google.com/file/d/1iFCFagHGhUJVzBqV74Q439zdNQy_Vvfo/view?usp=drive_link)
 
 ## Author
 - **Hitika Dhiman**

@@ -30,7 +30,7 @@ A marketplace connecting students who need help with peer tutors, with bookings 
 ## How to Run Locally
 1. Clone this repository:
    ```bash
-   git clone https://github.com/hitikadhiman/Peer-Tutoring-Marketplace.git
+   git clone https://github.com/hitika567-oss/Peer-Tutoring-Marketplace.git
    ```
 2. Navigate into the project directory:
    ```bash
